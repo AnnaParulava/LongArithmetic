@@ -1,31 +1,31 @@
-/*Создайте класс IntHuge (длинные целые, представленные массивом разрядов)
-с операциями +, +=, -, -=, =, ==, !=, >, <, >=, <=, *, *=, *(int) (умножение на константу). */
+п»ї/*вЂ”РѕР·РґР°Р№С‚Рµ РєР»Р°СЃСЃ IntHuge (РґР»РёРЅРЅС‹Рµ С†РµР»С‹Рµ, РїСЂРµРґСЃС‚Р°РІР»РµРЅРЅС‹Рµ РјР°СЃСЃРёРІРѕРј СЂР°Р·СЂВ¤РґРѕРІ)
+СЃ РѕРїРµСЂР°С†РёВ¤РјРё +, +=, -, -=, =, ==, !=, >, <, >=, <=, *, *=, *(int) (СѓРјРЅРѕР¶РµРЅРёРµ РЅР° РєРѕРЅСЃС‚Р°РЅС‚Сѓ). */
 
 #pragma once
 #ifndef INTHUGE_H_INCLUDED
 #define INTHUGE_H_INCLUDED
 
-#include <algorithm> //функции выполняющие алгоритмы
-#include <string> //чтобы использовать строки
-#include <exception> //исключения
-#include <vector> //описание vector-ов
-#include <sstream> //строковые потоки для преобразования чисел
+#include <algorithm> //С„СѓРЅРєС†РёРё РІС‹РїРѕР»РЅВ¤СЋС‰РёРµ Р°Р»РіРѕСЂРёС‚РјС‹
+#include <string> //С‡С‚РѕР±С‹ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЃС‚СЂРѕРєРё
+#include <exception> //РёСЃРєР»СЋС‡РµРЅРёВ¤
+#include <vector> //РѕРїРёСЃР°РЅРёРµ vector-РѕРІ
+#include <sstream> //СЃС‚СЂРѕРєРѕРІС‹Рµ РїРѕС‚РѕРєРё РґР»В¤ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёВ¤ С‡РёСЃРµР»
 #include <iomanip>
 
 class IntHuge{
 public:
-  IntHuge(); //конструктор по умолчанию
-  IntHuge(std::string number); //конструктор по строке
-  IntHuge(long long number); //конструктор по длинному целому
-  IntHuge(const IntHuge& rhs); //конструктор копирования
+  IntHuge(); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+  IntHuge(std::string number); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СЃС‚СЂРѕРєРµ
+  IntHuge(long long number); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ РґР»РёРЅРЅРѕРјСѓ С†РµР»РѕРјСѓ
+  IntHuge(const IntHuge& rhs); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёВ¤
 
-  //операторы присваивания
+  //РѕРїРµСЂР°С‚РѕСЂС‹ РїСЂРёСЃРІР°РёРІР°РЅРёВ¤
   IntHuge& operator=(const IntHuge& rhs);
   IntHuge& operator+=(const IntHuge& rhs);
   IntHuge& operator-=(const IntHuge& rhs);
   IntHuge& operator*=(const IntHuge& rhs);
 
-  //операторы сравнения и равенства
+  //РѕРїРµСЂР°С‚РѕСЂС‹ СЃСЂР°РІРЅРµРЅРёВ¤ Рё СЂР°РІРµРЅСЃС‚РІР°
   bool operator>(const IntHuge& rhs) const;
   bool operator<(const IntHuge& rhs) const;
   bool operator==(const IntHuge& rhs) const;
@@ -33,27 +33,27 @@ public:
   bool operator<=(const IntHuge& rhs) const;
   bool operator!=(const IntHuge& rhs) const;
 
-  //потоковый ввод-вывод
+  //РїРѕС‚РѕРєРѕРІС‹Р№ РІРІРѕРґ-РІС‹РІРѕРґ
   friend std::istream& operator>>(std::istream& inStream, IntHuge& intHuge);
   friend std::ostream& operator<<(std::ostream& outStream, IntHuge& intHuge);
 
-  //арифметические операции
+  //Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёРµ РѕРїРµСЂР°С†РёРё
   const IntHuge operator+(const IntHuge& rhs) const;
   const IntHuge operator-(const IntHuge& rhs) const;
   const IntHuge operator*(const IntHuge& rhs) const;
 
-  std::string to_string() const; //приведение к стороковому типу
+  std::string to_string() const; //РїСЂРёРІРµРґРµРЅРёРµ Рє СЃС‚РѕСЂРѕРєРѕРІРѕРјСѓ С‚РёРїСѓ
 
-  IntHuge abs() const; //абсолютное значение целого числа
+  IntHuge abs() const; //Р°Р±СЃРѕР»СЋС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ С†РµР»РѕРіРѕ С‡РёСЃР»Р°
 
 private:
-  void removeLeadingZeros(); //удалить ведущие нули
+  void removeLeadingZeros(); //СѓРґР°Р»РёС‚СЊ РІРµРґСѓС‰РёРµ РЅСѓР»Рё
   IntHuge mul(unsigned int digit) const;
 
   int digit(int index) const;
 
-  std::vector<unsigned int> digits; //массив цифр
-  bool sign; //флажок для знака
+  std::vector<unsigned int> digits; //РјР°СЃСЃРёРІ С†РёС„СЂ
+  bool sign; //С„Р»Р°Р¶РѕРє РґР»В¤ Р·РЅР°РєР°
 };
 
 #endif // INTHUGE_H_INCLUDED

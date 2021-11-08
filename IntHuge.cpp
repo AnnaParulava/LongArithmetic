@@ -1,40 +1,40 @@
 #include "IntHuge.h"
 
 
-//Конструктор по умолчанию
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 IntHuge::IntHuge(){
-  digits.push_back(0); //инициализировать массив цифр нулем
-  sign = true; //установаить положительный знак
+  digits.push_back(0); //РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ РјР°СЃСЃРёРІ С†РёС„СЂ РЅСѓР»РµРј
+  sign = true; //СѓСЃС‚Р°РЅРѕРІР°РёС‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Р№ Р·РЅР°Рє
 }
 
 
-//Конструктор по строке
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СЃС‚СЂРѕРєРµ
 IntHuge::IntHuge(std::string number){
-if (number[0] == '-') //анализируем первый символ на предмет знака
+if (number[0] == '-') //Р°РЅР°Р»РёР·РёСЂСѓРµРј РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» РЅР° РїСЂРµРґРјРµС‚ Р·РЅР°РєР°
  this->sign = false;
 else
  this->sign = true;
 
  int pos = isdigit(number[0]) ? 0 : 1;
- for(unsigned int i = pos; i < number.length(); i++){//остальные цифры помещаем в массив
-    digits.push_back(number[i] - '0');    //при этом приобразуем символ в число
+ for(unsigned int i = pos; i < number.length(); i++){//РѕСЃС‚Р°Р»СЊРЅС‹Рµ С†РёС„СЂС‹ РїРѕРјРµС‰Р°РµРј РІ РјР°СЃСЃРёРІ
+    digits.push_back(number[i] - '0');    //РїСЂРё СЌС‚РѕРј РїСЂРёРѕР±СЂР°Р·СѓРµРј СЃРёРјРІРѕР» РІ С‡РёСЃР»Рѕ
   }
 
-  removeLeadingZeros(); //удалить ведущие нули
+  removeLeadingZeros(); //СѓРґР°Р»РёС‚СЊ РІРµРґСѓС‰РёРµ РЅСѓР»Рё
 }
 
-//Конструктор по длинному целому
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ РґР»РёРЅРЅРѕРјСѓ С†РµР»РѕРјСѓ
 IntHuge::IntHuge(long long number)
-  : IntHuge(std::to_string(number)) { //преобразовать аргумент к типу string и передать управление соответствующему конструктору
+  : IntHuge(std::to_string(number)) { //РїСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ Р°СЂРіСѓРјРµРЅС‚ Рє С‚РёРїСѓ string Рё РїРµСЂРµРґР°С‚СЊ СѓРїСЂР°РІР»РµРЅРёРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРјСѓ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂСѓ
 }
 
-//Конструктор копирования
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 IntHuge::IntHuge(const IntHuge& rhs){
   sign = rhs.sign;
   digits = rhs.digits;
 }
 
-//Приведение к строковому типу
+//РџСЂРёРІРµРґРµРЅРёРµ Рє СЃС‚СЂРѕРєРѕРІРѕРјСѓ С‚РёРїСѓ
 std::string IntHuge::to_string() const{
   std::string str;
   if(!sign)
@@ -44,13 +44,13 @@ std::string IntHuge::to_string() const{
   return str;
 }
 
-//Удаление ведущих нулей
+//РЈРґР°Р»РµРЅРёРµ РІРµРґСѓС‰РёС… РЅСѓР»РµР№
 void IntHuge::removeLeadingZeros(){
   while(digits.size() > 1 && digits.at(0) == 0)
     digits.erase(digits.begin(), digits.begin() + 1);
 }
 
-//Ввод
+//Р’РІРѕРґ
 std::istream& operator>>(std::istream& ist, IntHuge& intHuge){
   std::string number;
   ist >> number;
@@ -58,37 +58,37 @@ std::istream& operator>>(std::istream& ist, IntHuge& intHuge){
   return ist;
 }
 
-//Вывод
+//Р’С‹РІРѕРґ
 std::ostream& operator<<(std::ostream& ost, IntHuge& intHuge){
   ost << intHuge.to_string();
   return ost;
 }
 
-//Оператор присваивания
+//РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 IntHuge& IntHuge::operator=(const IntHuge& rhs){
-  if(this == &rhs) //проверка на самоприсваивание
+  if(this == &rhs) //РїСЂРѕРІРµСЂРєР° РЅР° СЃР°РјРѕРїСЂРёСЃРІР°РёРІР°РЅРёРµ
     return *this;
   sign = rhs.sign;
   digits = rhs.digits;
   return *this;
 }
 
-//Оператор сравнения >
+//РћРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ >
 bool IntHuge::operator>(const IntHuge& rhs) const{
 
-  //проверка знака
+  //РїСЂРѕРІРµСЂРєР° Р·РЅР°РєР°
   if(sign && !rhs.sign) return true;
   if(!sign && rhs.sign) return false;
 
-  //проверка количества чисел в числе
+  //РїСЂРѕРІРµСЂРєР° РєРѕР»РёС‡РµСЃС‚РІР° С‡РёСЃРµР» РІ С‡РёСЃР»Рµ
   if(digits.size() > rhs.digits.size())
     return sign;
   if(digits.size() < rhs.digits.size())
     return !sign;
 
-  //сравнение разрядов, начиная со старших
+  //СЃСЂР°РІРЅРµРЅРёРµ СЂР°Р·СЂСЏРґРѕРІ, РЅР°С‡РёРЅР°СЏ СЃРѕ СЃС‚Р°СЂС€РёС…
   for(size_t i = 0; i < digits.size(); i++) {
-    if(digits[i] > rhs.digits[i]) //Сравнение идет до первого различающегося символа
+    if(digits[i] > rhs.digits[i]) //РЎСЂР°РІРЅРµРЅРёРµ РёРґРµС‚ РґРѕ РїРµСЂРІРѕРіРѕ СЂР°Р·Р»РёС‡Р°СЋС‰РµРіРѕСЃСЏ СЃРёРјРІРѕР»Р°
       return sign;
     if(digits[i] < rhs.digits[i])
       return !sign;
@@ -97,83 +97,83 @@ bool IntHuge::operator>(const IntHuge& rhs) const{
   return false;
 }
 
-//Оператор сравнения <
+//РћРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ <
 bool IntHuge::operator<(const IntHuge& rhs) const{
   return !(*this == rhs) && !(*this > rhs);
 }
 
-//Оператор равенства ==
+//РћРїРµСЂР°С‚РѕСЂ СЂР°РІРµРЅСЃС‚РІР° ==
 bool IntHuge::operator==(const IntHuge& rhs) const{
   return (sign == rhs.sign && digits == rhs.digits);
 }
 
-//Оператор равенства !=
+//РћРїРµСЂР°С‚РѕСЂ СЂР°РІРµРЅСЃС‚РІР° !=
 bool IntHuge::operator!=(const IntHuge& rhs) const{
   return !(*this == rhs);
 }
 
-//Оператор сравнения <=
+//РћРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ <=
 bool IntHuge::operator<=(const IntHuge& rhs) const{
   return (*this == rhs) || !(*this > rhs);
 }
 
-//Оператор сравнения >=
+//РћРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ >=
 bool IntHuge::operator>=(const IntHuge& rhs) const{
   return (*this == rhs) || (*this > rhs);
 }
 
 
-//Получение модуля числа
+//РџРѕР»СѓС‡РµРЅРёРµ РјРѕРґСѓР»СЏ С‡РёСЃР»Р°
 IntHuge IntHuge::abs() const{
-  IntHuge a(*this); //создать копию аргумента
-  a.sign = true; //изменить у него флаг знака
+  IntHuge a(*this); //СЃРѕР·РґР°С‚СЊ РєРѕРїРёСЋ Р°СЂРіСѓРјРµРЅС‚Р°
+  a.sign = true; //РёР·РјРµРЅРёС‚СЊ Сѓ РЅРµРіРѕ С„Р»Р°Рі Р·РЅР°РєР°
   return a;
 }
 
-//Возвращает i-тый разряд числа или ноль если индекс отрицательный
+//Р’РѕР·РІСЂР°С‰Р°РµС‚ i-С‚С‹Р№ СЂР°Р·СЂСЏРґ С‡РёСЃР»Р° РёР»Рё РЅРѕР»СЊ РµСЃР»Рё РёРЅРґРµРєСЃ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№
 int IntHuge::digit(int index) const {
   return index >= 0 ? digits[index] : 0;
 }
 
-//универсальный оператор сложения (в столбик)
+//СѓРЅРёРІРµСЂСЃР°Р»СЊРЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ СЃР»РѕР¶РµРЅРёСЏ (РІ СЃС‚РѕР»Р±РёРє)
 const IntHuge IntHuge::operator+(const IntHuge& rhs) const{
   IntHuge sum;
-  if(sign == rhs.sign){ //проверка одинаковый ли знак
+  if(sign == rhs.sign){ //РїСЂРѕРІРµСЂРєР° РѕРґРёРЅР°РєРѕРІС‹Р№ Р»Рё Р·РЅР°Рє
     sum.digits.clear();
     sum.sign = sign;
-    unsigned int carry = 0; //флаг переноса из предыдущего разряда
+    unsigned int carry = 0; //С„Р»Р°Рі РїРµСЂРµРЅРѕСЃР° РёР· РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЂР°Р·СЂСЏРґР°
     int index1 = digits.size() - 1;
     int index2 = rhs.digits.size() - 1;
-    while(index1 >=0 || index2 >= 0){ //складываются разряды чисел справа налево
+    while(index1 >=0 || index2 >= 0){ //СЃРєР»Р°РґС‹РІР°СЋС‚СЃСЏ СЂР°Р·СЂСЏРґС‹ С‡РёСЃРµР» СЃРїСЂР°РІР° РЅР°Р»РµРІРѕ
       auto digitsum = this->digit(index1) + rhs.digit(index2) + carry;
 
       carry = digitsum / 10;
       digitsum %= 10;
 
-      sum.digits.push_back(digitsum); //цифры к результату добавляются в конец
+      sum.digits.push_back(digitsum); //С†РёС„СЂС‹ Рє СЂРµР·СѓР»СЊС‚Р°С‚Сѓ РґРѕР±Р°РІР»СЏСЋС‚СЃСЏ РІ РєРѕРЅРµС†
       index1--;
       index2--;
     }
     if(carry != 0)
       sum.digits.push_back(carry);
-    std::reverse(sum.digits.begin(), sum.digits.end()); //перевернуть результат
-  } else{ //вычитаем из большего по модулю
+    std::reverse(sum.digits.begin(), sum.digits.end()); //РїРµСЂРµРІРµСЂРЅСѓС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚
+  } else{ //РІС‹С‡РёС‚Р°РµРј РёР· Р±РѕР»СЊС€РµРіРѕ РїРѕ РјРѕРґСѓР»СЋ
     if(this->abs() > rhs.abs()){
       sum = this->abs() - rhs.abs();
       sum.sign = sign;
     } else{
       sum = rhs.abs() - this->abs();
-      sum.sign = rhs.sign; //знак результата совпадает с большим по модулю
+      sum.sign = rhs.sign; //Р·РЅР°Рє СЂРµР·СѓР»СЊС‚Р°С‚Р° СЃРѕРІРїР°РґР°РµС‚ СЃ Р±РѕР»СЊС€РёРј РїРѕ РјРѕРґСѓР»СЋ
     }
   }
   return sum;
 }
 
-//универсальный оператор разности
+//СѓРЅРёРІРµСЂСЃР°Р»СЊРЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ СЂР°Р·РЅРѕСЃС‚Рё
 const IntHuge IntHuge::operator-(const IntHuge& rhs) const{
   IntHuge difference;
-  if(sign == rhs.sign) { //проверка на одинаковые знаки
-    if(this->abs() > rhs.abs() || this->abs() == rhs.abs()){ //вычитаем из большего меньшее по модулю
+  if(sign == rhs.sign) { //РїСЂРѕРІРµСЂРєР° РЅР° РѕРґРёРЅР°РєРѕРІС‹Рµ Р·РЅР°РєРё
+    if(this->abs() > rhs.abs() || this->abs() == rhs.abs()){ //РІС‹С‡РёС‚Р°РµРј РёР· Р±РѕР»СЊС€РµРіРѕ РјРµРЅСЊС€РµРµ РїРѕ РјРѕРґСѓР»СЋ
       difference.digits.clear();
       int index1 = digits.size() - 1;
       int index2 = rhs.digits.size() - 1;
@@ -182,7 +182,7 @@ const IntHuge IntHuge::operator-(const IntHuge& rhs) const{
       while(index1 >= 0 || index2 >= 0){
         auto digitdiff = this->digit(index1) - rhs.digit(index2) - borrow;
 
-        if(digitdiff < 0){//если разряд результата отрицательный - нужно "занять" 10
+        if(digitdiff < 0){//РµСЃР»Рё СЂР°Р·СЂСЏРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ - РЅСѓР¶РЅРѕ "Р·Р°РЅСЏС‚СЊ" 10
             borrow = 1;
             digitdiff += 10;
         } else borrow = 0;
@@ -193,29 +193,29 @@ const IntHuge IntHuge::operator-(const IntHuge& rhs) const{
       }
       std::reverse(difference.digits.begin(), difference.digits.end());
       difference.removeLeadingZeros();
-    } else { //меняем знаки
+    } else { //РјРµРЅСЏРµРј Р·РЅР°РєРё
       difference = (rhs - (*this));
       difference.sign = !difference.sign;
     }
-  } else{ //знаки разнные, выполныется сложение
+  } else{ //Р·РЅР°РєРё СЂР°Р·РЅРЅС‹Рµ, РІС‹РїРѕР»РЅС‹РµС‚СЃСЏ СЃР»РѕР¶РµРЅРёРµ
     difference = this->abs() + rhs.abs();
     difference.sign = sign;
   }
   return difference;
 }
 
-//оператор вычитания длинного целого
+//РѕРїРµСЂР°С‚РѕСЂ РІС‹С‡РёС‚Р°РЅРёСЏ РґР»РёРЅРЅРѕРіРѕ С†РµР»РѕРіРѕ
 IntHuge& IntHuge::operator -=(const IntHuge& rhs){
     return *this = *this - rhs;
 }
 
-//оператор добавления длинного целого
+//РѕРїРµСЂР°С‚РѕСЂ РґРѕР±Р°РІР»РµРЅРёСЏ РґР»РёРЅРЅРѕРіРѕ С†РµР»РѕРіРѕ
 IntHuge& IntHuge::operator +=(const IntHuge& rhs){
     return *this = *this + rhs;
 }
 
 
-//оператор умножения
+//РѕРїРµСЂР°С‚РѕСЂ СѓРјРЅРѕР¶РµРЅРёСЏ
 IntHuge& IntHuge::operator *=(const IntHuge& rhs){
     return *this = *this * rhs;
 }
@@ -225,9 +225,9 @@ IntHuge IntHuge::mul(unsigned int digit) const{
   result.digits.clear();
   result.sign = true;
   unsigned int carry = 0;
-  for(int i = digits.size()-1; i>=0; i--){ //перебираются цифры второго числа, начиная с младших разрядов
-    unsigned int digitres = digits[i] * digit + carry; //умножаются на первое число
-    if(digitres > 9){ //складываем результат
+  for(int i = digits.size()-1; i>=0; i--){ //РїРµСЂРµР±РёСЂР°СЋС‚СЃСЏ С†РёС„СЂС‹ РІС‚РѕСЂРѕРіРѕ С‡РёСЃР»Р°, РЅР°С‡РёРЅР°СЏ СЃ РјР»Р°РґС€РёС… СЂР°Р·СЂСЏРґРѕРІ
+    unsigned int digitres = digits[i] * digit + carry; //СѓРјРЅРѕР¶Р°СЋС‚СЃСЏ РЅР° РїРµСЂРІРѕРµ С‡РёСЃР»Рѕ
+    if(digitres > 9){ //СЃРєР»Р°РґС‹РІР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚
       carry = digitres / 10;
       digitres %= 10;
     }
