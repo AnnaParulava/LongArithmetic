@@ -1,0 +1,15 @@
+Input values: a= -8327493723423 b=-2438873987
+Results
+Operator == a==b: 0
+Operator != a!=b: 1
+Operator >  a>b:  0
+Operator <  a<b:  1
+Operator >= a>=b: 0
+Operator <= a<=b: 1
+Operator +  a+b:  -8329932597410
+Operator -  a-b:  -8325054849436
+Operator *= a*=b: 20309707818962127297501
+Operator *  a*b:  20309707818962127297501
+Operator -= a-=b: -8325054849436
+Operator += a+=b: -8327493723423
+Operator =  a=b:  a=-2438873987
